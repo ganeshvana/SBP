@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <template id="external_layout_replace" inherit_id="web.external_layout_standard">
+
+        <xpath expr="//div[1]" position="replace">
+
+
+            <div class="header">
+                <div class="row">
+<!--                    <div class="col-3 mb4">-->
+<!--                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 45px;"-->
+<!--                             alt="Logo"/>-->
+<!--                    </div>-->
+<!--                    <div class="col-9 text-right" style="margin-top:22px;" t-field="company.report_header" name="moto"/>-->
+                </div>
+<!--                <div t-if="company.logo or company.report_header" class="row zero_min_height">-->
+<!--                    <div class="col-12">-->
+<!--                        <div style="border-bottom: 1px solid black;"/>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <table style="width:1015px;">
+                    <tr>
+                        <td style="width:200px;">
+                            <div style="padding-top:50px;" class="col-3 mb4">
+                                <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 65px;"
+                                     alt="Logo"/>
+                            </div>
+                            <div class="col-9 text-right" style="margin-top:22px;" t-field="company.report_header" name="moto"/>
+                        </td>
+                        <td style="width:615px%;">
+                            <div style="padding-top:50px;">
+                                <div class="text-center" style="font-size: 30px;" t-if="company.partner_id">
+                                    <strong>
+                                        <span t-field="company.partner_id"/>
+                                    </strong>
+                                </div>
+                                <div style="font-size: 15px;" class="text-center" t-if="company.street">Head office: <span t-field="company.street"/>, <span
+                                        t-field="company.street2"/> <span t-field="company.city"/>
+                                    <span t-field="company.state_id.name"/>
+                                    -
+                                    <span t-field="company.zip"/>
+                                </div>
+            <!--                    <div class="text-center" t-if="company.street">-->
+            <!--                    </div>-->
+
+                                <div style="font-size: 15px;" class="text-center"  t-iff="company.phone">Phone:
+                                    <span t-field="company.phone"/>
+                                    |
+                                    <span t-field="company.website"/>
+                                </div>
+                                <div style="font-size: 15px;" class="text-center" t-if="company.vat">GSTIN:
+                                    <span t-field="company.vat"/>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="width:200px;">
+                            <div></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+
+        </xpath>
+
+
+        <xpath expr="//div[@class='footer o_standard_footer']" position="replace">
+            <div class="footer o_standard_footer">
+                <div class="text-center" style="border-top: 1px solid black;">
+                    <ul class="list-inline mb4" style="font-size: 11px;">
+                        <li t-if="company.partner_id" class="list-inline-item">
+                            Branch Offices: *Sri Balaji Plastics, 1/487 &amp; 1/488, Kothari Nagar,
+                            K.Vadamadurai Post, Coimbatore - 641017
+                            <br />
+                            *4(1), Maniakarampalayam, Idigarai, Coimbatore - 641022
+                        </li>
+
+
+                        <div class="text-center" t-if="company.sub_branch_id" >*<span
+                                t-field="company.sub_branch_id.street"/>,<span t-field="company.sub_branch_id.street2"/>
+                            ,<span t-field="company.sub_branch_id.city"/>,
+                            <span t-field="company.sub_branch_id.state_id.name"/>
+                            -
+                            <span t-field="company.sub_branch_id.zip"/>
+                        </div>
+
+                    </ul>
+
+                    <div name="financial_infos">
+                        <span t-field="company.report_footer"/>
+                    </div>
+
+                    <div t-if="report_type == 'pdf'" class="text-muted">
+                        Page:
+                        <span class="page"/>
+                        /
+                        <span class="topage"/>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+
+    </template>
+
+
+</odoo>
+
+

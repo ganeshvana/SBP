@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sale_insurance_document_inherited" inherit_id="account.report_invoice_document_with_payments">
+        <xpath expr="//div[hasclass('clearfix')]" position="replace">
+        	<div id="total" class="row">
+                <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                    <table class="table table-sm">
+                        <tr class="border-black o_subtotal" style="">
+                            <td><strong>Subtotal</strong></td>
+                            <td class="text-right">
+                                <span t-field="o.amount_untaxed"/>
+                            </td>
+                        </tr>
+                        <t t-foreach="o.amount_by_group" t-as="amount_by_group">
+                            <tr style="">
+                                <t t-if="len(o.tax_line_ids) == 1 and o.amount_untaxed == amount_by_group[2]">
+                                    <td><span t-esc="amount_by_group[0]"/></td>
+                                    <td class="text-right o_price_total">
+                                        <span t-esc="amount_by_group[3]" />
+                                    </td>
+                                </t>
+                                <t t-else="">
+                                    <td>
+                                        <span t-esc="amount_by_group[0]"/>
+                                        <span>&amp;nbsp;<span>on</span>
+                                            <t t-esc="amount_by_group[4]"/>
+                                        </span>
+                                    </td>
+                                    <td class="text-right o_price_total">
+                                        <span t-esc="amount_by_group[3]"/>
+                                    </td>
+                                </t>
+                            </tr>
+                        </t>
+                        <tr class="border-black o_total">
+                            <td><strong>Insurance 0.04%</strong></td>
+                            <td class="text-right">
+                                <span t-esc="'{0:,.2f}'.format(o.insurance_amount)"/>
+                            </td>
+                        </tr>
+                       	<tr class="border-black o_total">
+                            <td><strong>Round Off</strong></td>
+                            <td class="text-right">
+                                <span t-esc="'{0:,.2f}'.format(o.round_off)"/>
+                            </td>
+                        </tr>
+                        <tr class="border-black o_total">
+                            <td><strong>Total</strong></td>
+                            <td class="text-right">
+                                <span t-field="o.amount_total"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+      	</xpath>
+    </template>
+</odoo>
