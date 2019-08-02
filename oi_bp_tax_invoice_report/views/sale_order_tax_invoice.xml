@@ -235,7 +235,7 @@
                                                     <td style="border-left:hidden; border-top:hidden; border-right:hidden; border-bottom:hidden;" class="text-right">
 <!--                                                    <t t-set="a" t-value="(o.amount_untaxed+o.amount_tax)"/>-->
 <!--                                                    <t t-set="b" t-value="round(o.amount_total)-a"/>-->
-                                                        <t t-esc="'{0:,.2f}'.format(o.round_off)"></t>
+                                                        <t t-esc="'{0:,.2f}'.format(o.total_round_off)"></t>
                                                     </td>
                                                 </tr>
                                                 <tr style="border-left:hidden; border-top:hidden; border-right:hidden; border-bottom:hidden;" class="border-black o_total">

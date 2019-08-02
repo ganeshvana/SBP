@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="invoice_form_inherit_insurance" model="ir.ui.view">
+            <field name="name">account.invoice.form.inherit.insurance</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form" />
+            <field name="arch" type="xml">
+                <data>
+
+                    <xpath expr="//field[@name='payment_term_id']" position="after">
+                        <field name="is_insurance_apply"/>
+                    </xpath>
+                    <xpath expr="//field[@name='amount_untaxed']" position="after">
+                        <field name="insurance_amount"
+                            widget='monetary'
+                            options="{'currency_field': 'currency_id'}"
+                         />
+                    </xpath>
+                    <xpath expr="//field[@name='amount_tax']" position="after">
+                        <field name="total_round_off"
+                            widget='monetary'
+                            options="{'currency_field': 'currency_id'}"
+                         />
+                    </xpath>
+                    
+
+                </data>
+            </field>
+        </record>
+
+    </data>
+</odoo>
