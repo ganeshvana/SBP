@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+                id="action_report_tax_invoice"
+                string="Tax Invoice"
+                model="account.invoice"
+                report_type="qweb-pdf"
+                file="oi_bp_tax_invoice_report.report_tax_invoice_report"
+                name="oi_bp_tax_invoice_report.report_tax_invoice_report"
+        />
+    </data>
+</odoo>

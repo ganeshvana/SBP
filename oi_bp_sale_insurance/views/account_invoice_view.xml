@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    <record id="account_invocie_inherit" model="ir.ui.view">
+        <field name="name">account.invoice.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+             <field name="amount_tax" position="after">
+                <field name="insurance_amount"/>
+                <field name="round_off"/>
+            </field>
+            <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='invoice_line_tax_ids']" position="after">
+                <field name="line_insurance_amount"/>
+            </xpath>
+        </field>
+        </record>
+    </data>
+</odoo>

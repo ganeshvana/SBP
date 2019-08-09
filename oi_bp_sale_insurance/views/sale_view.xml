@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    <record id="sale_sale_order_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="amount_tax" position="after">
+                <field name="insurance_amount"/>
+                <field name="round_off"/>
+            </field>
+            <xpath expr="//field[@name='order_line']//tree//field[@name='discount']" position="before">
+                <field name="line_insurance_amount"/>
+            </xpath>
+        </field>
+    </record>
+    </data>
+</odoo>
+

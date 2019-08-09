@@ -1,0 +1,290 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <template id="report_tax_invoice_report_doc">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <span t-foreach="docs" t-as="o">
+                        <div class="oe_structure"/>
+                        <div class="page">
+                            <table>
+                                <style>
+                                table, tr, td {
+                                height:20px;
+                                }
+                                h5::first-letter {
+                                  font-size: 130%;
+                                }
+                                </style>
+                                <tr style="border-top:hidden; border-right:hidden; border-left:hidden; border-bottom:hidden;" >
+                                    <td class="text-right">
+                                        <h5><strong>TAX</strong></h5>
+                                    </td>
+                                    <td style="border-left:hidden;" class="text-left">
+                                        <h5><strong>INVOICE</strong></h5>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="text-right">
+                              <h6><strong><span t-esc="copy_name"/></strong></h6>
+                            </div>
+                            <style>
+                                table, td, th {
+                                border: 1px solid black;
+                                width: 700px;
+                                font-size:15px !important;
+                                }
+                                p, h1, h2, h3, h4, h4, h6, h7, h8 {
+                                font-family: "Times New Roman", Times, serif;
+                                }
+                                td{
+                                padding-left:5px;
+                                padding-top:5px;
+                                padding-bottom:3px;
+                                }
+                            </style>
+                            <div style="font-size:13px;">Details of Consignee:</div>
+                            <table>
+                                <tr>
+                                    <td style="width:350px;">
+                                        <strong><div style="font-size:20px">Bill To</div></strong>
+                                        <div>
+                                            <b><span t-field="o.partner_id.name"/></b>,
+                                        </div>
+                                        <div t-if="o.partner_id.street">
+                                            <span t-field="o.partner_id.street"/>,
+                                        </div>
+                                        <div t-if="o.partner_id.street2">
+                                            <span t-field="o.partner_id.street2"/>,
+                                        </div>
+                                         <div t-if="o.partner_id.city">
+                                            <span t-field="o.partner_id.city"/> -
+                                            <span t-field="o.partner_id.state_id.name"/> -
+                                            <span t-field="o.partner_id.zip"/>,
+                                        </div>
+                                        <div t-if="o.partner_id.city">
+                                            <span t-field="o.partner_id.country_id"/>.
+                                        </div>
+                                        <br/>
+                                        <div t-if="o.partner_id.phone">Phone:
+                                            <span t-field="o.partner_id.phone"/>
+                                        </div>
+                                        <div t-if="o.partner_id.vat">GSTIN/PAN:
+                                            <span t-field="o.partner_id.vat"/>
+                                        </div>
+                                    </td>
+                                    <td style="width:350px;">
+                                        <strong><div style="font-size:20px">Ship To</div></strong>
+                                        <div>
+                                            <b><span t-field="o.partner_shipping_id.name"/></b>,
+                                        </div>
+                                        <div t-if="o.partner_shipping_id.street">
+                                            <span t-field="o.partner_shipping_id.street"/>,
+                                        </div>
+                                        <div t-if="o.partner_shipping_id.street2">
+                                            <span t-field="o.partner_shipping_id.street2"/>,
+                                        </div>
+                                         <div t-if="o.partner_shipping_id.city">
+                                            <span t-field="o.partner_shipping_id.city"/> -
+                                            <span t-field="o.partner_shipping_id.state_id.name"/> -
+                                            <span t-field="o.partner_shipping_id.zip"/>,
+                                        </div>
+                                        <div t-if="o.partner_shipping_id.city">
+                                            <span t-field="o.partner_shipping_id.country_id"/>.
+                                        </div>
+                                        <br/>
+                                        <div t-if="o.partner_shipping_id.phone">Phone:
+                                            <span t-field="o.partner_shipping_id.phone"/>
+                                        </div>
+                                        <div t-if="o.partner_shipping_id.vat">GSTIN/PAN:
+                                            <span t-field="o.partner_shipping_id.vat"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div><br/>
+                        <t t-set="display_discount" t-value="any([l.discount for l in o.invoice_line_ids])"/>
+                        <table>
+                            <style>
+                                    table, td, th {
+                                    border: 1px solid black;
+                                    width: 1015px;
+                                    font-size:15px !important;
+                                    }
+                                    p, h1, h2, h3, h4, h5, h6 {
+                                    font-family: "Times New Roman", Times, serif;
+                                    }
+                                    td{
+                                    padding-left:5px;
+                                    padding-top:5px;
+                                    padding-bottom:3px;
+                                    }
+                                </style>
+                            <thead>
+                                <tr style="border-top:hidden; border-right:hidden; border-left:hidden;" >
+                                    <th  class="text-right" colspan="8" style="width:1015px" t-if="o.number"><strong>Invoice Number:<span t-field="o.number"/></strong></th>
+                                </tr>
+                                <tr style="border-top:hidden; border-right:hidden; border-left:hidden;" >
+                                    <th  class="text-right" colspan="8" style="width:1015px" t-if="o.date_invoice"><strong>Invoice Date:<span t-field="o.date_invoice"/></strong></th>
+                                </tr>
+                                <tr>
+                                    <th class="text-center" style="width:5px; padding-bottom:2px; padding-left:2px; padding-right:2px; padding-top:2px;"><b>SL.No</b></th>
+                                    <th class="text-center" style="width:480px;"><strong>Description</strong></th>
+                                    <th class="text-center" style="width:100px;"><strong>HSN/SAC</strong></th>
+                                    <th class="text-center" style="width:80px;"><strong>GST</strong></th>
+                                    <th class="text-center" style="width:70px;"><strong>Qty</strong></th>
+                                    <th class="text-center" style="width:130px;"><strong>Unit Price</strong></th>
+                                    <th class="text-center" style="width:70px; padding-right:5px" t-if="display_discount" t-attf-class="text-right{{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                        <strong>Disc(%)</strong>
+                                    </th>
+                                    <th class="text-center" style="width:150px;"><strong>Total</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="qty" t-value="0" />
+
+                                <t t-set="product_tmpl_ids" t-value="o.invoice_line_ids.mapped('product_id.product_tmpl_id')"/>
+
+                                <t t-foreach="product_tmpl_ids" t-as="prod_tmpl_id">
+
+                                    <t t-set="filter_invoice_line" t-value="o.invoice_line_ids.filtered(lambda x: x.product_id.product_tmpl_id.id == prod_tmpl_id.id)"/>
+                                    
+                                    <tr style="width:1px !important;">
+                                        <td class="text-center" style="width:1px !important;">
+                                            <span t-esc="prod_tmpl_id_index+1"/>
+                                        </td>
+                                        <td style="width:480px;" class="text-left">
+                                            <span t-field="prod_tmpl_id.name"/>
+                                        </td>
+                                        <td style="width:100px;" class="text-center">
+                                            <span t-esc="filter_invoice_line[0].product_id.l10n_in_hsn_code"/>
+                                        </td>
+                                        <td class="text-center" style="width:80px;">
+                                            <t t-set="b" t-value="filter_invoice_line[0].product_id.taxes_id"/>
+                                            <t t-set="d" t-value="0"/>
+                                            <t t-foreach="b.children_tax_ids" t-as="c">
+                                               <t t-set="d" t-value="d+c.amount"/>
+                                            </t>
+                                            <t t-esc="'{0:,.0f}'.format(d)"/>%
+                                        </td>
+                                        <td style="width:70px; padding-right:5px" class="text-right">
+                                            <t t-set="p" t-value="sum(filter_invoice_line.mapped('quantity'))"/>
+                                            <t t-esc="'{0:,.0f}'.format(p)"/>
+                                        </td>
+                                        <td style="width:130px; padding-right:5px" class="text-right">
+                                            <t t-set="p" t-value="filter_invoice_line[0].price_unit"/>
+                                            <t t-esc="'{0:,.2f}'.format(p)"/>
+                                        </td>
+                                        <td style="width:70px; padding-right:5px" t-if="display_discount" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                            <t t-set="p" t-value="filter_invoice_line[0].discount"/>
+                                            <t t-esc="'{0:,.0f}'.format(p)"/>%
+<!--                                             <t t-esc="'{0:,.0f}'.format(int(filter_invoice_line.discount))"/>% -->
+                                        </td>
+                                        <td style="width:150px; padding-right:5px;" class="text-right">
+                                            <t t-set="p" t-value="sum(filter_invoice_line.mapped('price_subtotal'))"/>
+                                            <t t-esc="'{0:,.2f}'.format(p)"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                            <hr />
+                        <div class="clearfix">
+                            <div id="total" class="row">
+                                <div t-attf-class="ml-auto">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <div>
+                                                <span style ="font-size: 15px;" t-field ="o.comment"/>
+                                            </div>
+                                            <br />
+                                            <div>
+                                                <span style="font-size: 15px;"><b>Total Amount in words:</b></span><br/>
+                                                <t t-set="amount" t-value="o.currency_id.amount_to_text(round(o.amount_total))"/>
+                                                <t t-set ="camma" t-value="amount.replace('And','and')"/>
+                                                <t style="font-size: 15px;" t-esc="camma.replace(',','')"/> only.
+                                            </div>
+                                        </div>
+                                        <div class="col-5">
+                                            <table class="table table-sm">
+                                                <tr style="border-left:hidden; border-top:hidden; border-right:hidden; border-bottom:hidden;">
+                                                    <td style="border-left:hidden; border-top:hidden; border-right:hidden; border-bottom:hidden;">Total Taxable Amount</td>
+                                                    <td style="border-left:hidden; border-top:hidden; border-right:hidden; border-bottom:hidden;" class="text-right">
+                                                        <span t-esc="'{0:,.2f}'.format(o.amount_untaxed)"/>
+                                                    </td>
+                                                </tr>
+                                                <tr class="border-black o_total">
+                                                    <td style="border-left:hidden;">Insurance 0.04%</td>
+                                                    <td style="border-left:hidden; border-top:hidden; border-right:hidden; border-bottom:hidden;" class="text-right">
+                                                        <span t-esc="'{0:,.2f}'.format(o.insurance_amount)"/>
+                                                    </td>
+                                                </tr>
+                                                <tr t-foreach="o.tax_line_ids" t-as="tax">
+                                                    <td style="border-left:hidden; border-top:hidden; border-right:hidden; border-bottom:hidden;">
+                                                        <t class="text-left" t-esc="tax.name"/>
+                                                    </td>
+                                                    <td style="border-left:hidden; border-top:hidden; border-right:hidden; border-bottom:hidden;" class="text-right">
+                                                        <span style="padding-left:5px;">
+                                                            <t t-esc="'{0:,.2f}'.format(tax.amount)" />
+                                                        </span>
+
+                                                    </td>
+                                                </tr>
+                                                <tr style="border-left:hidden; border-top:hidden; border-right:hidden; border-bottom:hidden;">
+                                                    <td style="border-left:hidden; border-top:hidden; border-right:hidden; border-bottom:hidden;">Round off</td>
+                                                    <td style="border-left:hidden; border-top:hidden; border-right:hidden; border-bottom:hidden;" class="text-right">
+<!--                                                    <t t-set="a" t-value="(o.amount_untaxed+o.amount_tax)"/>-->
+<!--                                                    <t t-set="b" t-value="round(o.amount_total)-a"/>-->
+                                                        <t t-esc="'{0:,.2f}'.format(o.round_off)"></t>
+                                                    </td>
+                                                </tr>
+                                                <tr style="border-left:hidden; border-top:hidden; border-right:hidden; border-bottom:hidden;" class="border-black o_total">
+                                                    <td style="border-left:hidden; border-top:hidden; border-right:hidden; border-bottom:hidden;">Total Amount</td>
+                                                    <td style="border-left:hidden; border-top:hidden; border-right:hidden; border-bottom:hidden;" class="text-right">
+                                                     <span style="padding-left:5px;" class="pull-right">
+                                                            <t t-esc="'{0:,.2f}'.format(round(o.amount_total))"/>
+                                                    </span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="clearfix">
+                            <div id="total" class="row">
+                                <div t-attf-class="ml-auto">
+                                    <table>
+                                        <div class="text-right" style="padding-right:70px">
+                                            <br/><br/>
+                                            <h6><b>For SRI BALAJI PLASTICS</b></h6>
+                                        </div>
+                                        <br /><br /><br />
+                                        <div class="text-right" style="padding-right:80px">
+                                           <h6><b>Authorised Signatory</b></h6>
+                                        </div>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_tax_invoice_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                     <t t-set="list_of_copy" t-value="['Original for Buyer', 'Duplicate for Transporter', 'Triplicate for Supplier', 'Extra Copy-1', 'Extra Copy-2']"/>
+                         <t t-foreach="list_of_copy" t-as="copy_name">
+                            <t t-call="oi_bp_tax_invoice_report.report_tax_invoice_report_doc" t-lang="doc.partner_id.lang"/>
+                         </t>
+                    </t>
+             </t>
+        </template>
+
+	</data>
+</odoo>

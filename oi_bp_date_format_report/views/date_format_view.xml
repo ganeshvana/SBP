@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <template id="report_stock_date_format_" inherit_id="stock.report_delivery_document">
+                <xpath expr="//td[@name='td_sched_date']" position="replace">
+                    <td name="td_sched_date">
+                       <t t-if="o.state == 'done'">
+                            <span t-field="o.date_done"/>
+                       </t>
+                       <t t-if="o.state != 'done'">
+                            <span t-field="o.scheduled_date" t-options='{"format": "MM/dd/yyyy"}'/>
+                       </t>
+                    </td>
+                </xpath>
+        </template>
+        <template id="report_purchase_order_date_format" inherit_id="purchase.report_purchaseorder_document">
+                <xpath expr="//div/div[3]" position="replace">
+                    <div t-if="o.date_order" class="col-3 bm-2">
+                        <strong>Order Date:</strong>
+                        <p t-field="o.date_order" class="m-0" t-options='{"format": "MM/dd/yyyy"}'/>
+                    </div>
+                </xpath>
+            <xpath expr="//tbody/tr/td[3]" position="replace">
+                    <td class="text-center">
+                            <span t-field="line.date_planned" t-options='{"format": "MM/dd/yyyy"}'/>
+                    </td>
+                </xpath>
+        </template>
+        <template id="report_sale_quotation_date_format" inherit_id="sale.report_saleorder_document">
+            <xpath expr="//div/div[2]" position="replace">
+                <div t-if="doc.confirmation_date and doc.state not in ['draft','sent']" class="col-auto mw-100 mb-2">
+                    <strong>Date Ordered:</strong>
+                    <p class="m-0" t-field="doc.confirmation_date" t-options='{"format": "MM/dd/yyyy"}'/>
+                </div>
+            </xpath>
+        </template>
+        <template id="report_request_for_quotation_date_format" inherit_id="purchase.report_purchasequotation_document">
+            <xpath expr="//tbody/tr/td[2]" position="replace">
+                <td class="text-center">
+                    <span t-field="order_line.date_planned" t-options='{"format": "MM/dd/yyyy"}'/>
+                </td>
+            </xpath>
+        </template>
+	</data>
+</odoo>
