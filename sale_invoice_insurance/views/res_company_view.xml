@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_company_form_inherit_insurance" model="ir.ui.view">
+            <field name="name">res.company.form.inherit.insurance</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form" />
+            <field name="arch" type="xml">
+                <data>
+
+                    <xpath expr="//page[last()]" position="after">
+                        <page string="Insurance Setting" name="insurance_setting">
+                            <!-- group>
+                                <group>
+                                    <field name="insurance_product_id" domain="[('type', '=', 'service')]"/>
+                                    <field name="insurance_tax_id"/>
+                                </group>
+                                <group>
+                                    <field name="roundoff_product_id" domain="[('type', '=', 'service')]"/>
+                                </group>
+                            </group-->
+                            <group>
+                                <group>
+                                    <field name="insurance_account_id" domain="[('internal_type','=','other'),('deprecated','=',False)]"/>
+                                </group>
+                                <group>
+                                    <field name="roundoff_account_id" domain="[('internal_type','=','other'),('deprecated','=',False)]"/>
+                                </group>
+                            </group>
+                        </page>
+                    </xpath>
+
+                </data>
+            </field>
+        </record>
+
+    </data>
+</odoo>
